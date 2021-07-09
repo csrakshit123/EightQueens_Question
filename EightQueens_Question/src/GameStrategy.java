@@ -3,15 +3,11 @@ public class GameStrategy {
 	private int numQueens = 0;
 
 	private int getColumn(int cellId) {
-		// WRITE YOUR LOGIC HERE...................................		
-
-		return 0;	// just for the heck of it
+		return cellId % 8;
 	}
 	
 	private int getRow(int cellId) {
-		// WRITE YOUR LOGIC HERE....................................
-		
-		return 0;	// just for the heck of it
+		return cellId / 8;
 	}
 
 	public boolean isValidPosition(int cellId) {
@@ -24,11 +20,29 @@ public class GameStrategy {
 		int col = getColumn(cellId);
 		
 		int row = getRow(cellId);
-		
-		/*
-			WRITE YOUR LOGIC HERE...............................
 
-		*/
+		for (int i = 0; i < 8; i++) {
+			if (placedQueens[row][i]){
+				return false;
+			}
+			if (placedQueens[i][col]){
+				return false;
+			}
+			if ((row - i >= 0) && (col - i >= 0) && placedQueens[row-i][col-i]){
+				return false;
+			}
+			if ((row + i < 8) && (col + i < 8) && placedQueens[row+i][col+i]){
+				return false;
+			}
+			if ((row - i >= 0) && (col + i < 8) && placedQueens[row-i][col+i]){
+				return false;
+			}
+			if ((row + i < 8) && (col - i >= 0) && placedQueens[row+i][col-i]){
+				return false;
+			}
+		}
+		placedQueens[row][col] = true;
+		numQueens += 1;
 		return isValid;
 	}
 }
